@@ -1,4 +1,5 @@
 
+import { Alert } from 'bootstrap';
 import React, { createContext, useReducer } from 'react';
 
 // 5. The reducer - this is used to update the state, based on the action
@@ -60,7 +61,19 @@ export const AppReducer = (state, action) => {
 			};
 		case 'SET_BUDGET':
 			action.type = "DONE";
-			state.budget = action.payload;
+            //alert(action.payload);
+            if(action.payload.value > 20000){
+                alert("The value cannot exceed 20000");
+                return false;
+            }
+
+            if(action.payload.value < action.payload.expense){
+                alert("Budget cannot be less than spending");
+                return false;
+            }
+
+            state.budget = action.payload.value;
+            
 
 			return {
 				...state,
